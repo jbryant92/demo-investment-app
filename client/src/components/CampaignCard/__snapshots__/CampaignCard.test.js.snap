@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<Card
+  as={null}
+  to={null}
+>
+  <Image
+    as="img"
+    ui={true}
+  />
+  <CardContent>
+    <CardHeader />
+    <CardMeta />
+    <CardMeta>
+      foo
+    </CardMeta>
+    <CardDescription>
+      Investment sought: £
+    </CardDescription>
+    <CardDescription>
+      Investment already funded: £
+    </CardDescription>
+  </CardContent>
+  <CardContent
+    extra={true}
+  >
+    <Progress
+      active={true}
+      color="blue"
+      size="small"
+      success={false}
+    >
+      % complete
+    </Progress>
+  </CardContent>
+  <CardContent
+    extra={true}
+  >
+    <Icon
+      as="i"
+      name="user"
+    />
+     
+    person has
+     invested
+  </CardContent>
+</Card>
+`;
