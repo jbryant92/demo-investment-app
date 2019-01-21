@@ -20,7 +20,7 @@ Country.create(
   code: 'UK'
 )
 
-20.times do
+45.times do
   country = Country.all.sample
   target_amount = (rand(1000..100000)/100).ceil * 100
   multiple = rand(2..10)

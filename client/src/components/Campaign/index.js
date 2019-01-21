@@ -4,7 +4,6 @@ import {
   Mutation
 } from 'react-apollo';
 import {
-  Segment,
   Dimmer,
   Loader,
   Container,
@@ -15,6 +14,7 @@ import {
   Icon
 } from 'semantic-ui-react';
 import { Row }  from 'reactstrap';
+import PropTypes from 'prop-types'
 
 import query from '../../queries/getCampaign';
 import createInvestment from '../../mutations/createInvestment';
@@ -64,6 +64,7 @@ class Campaign extends Component {
         query={query}
         variables={{ id }}
       >
+
         {({ loading, error, data }) => {
           if (loading) return(
             <Dimmer active inverted>
@@ -74,6 +75,7 @@ class Campaign extends Component {
           if (error) return <p>{error}</p>;
 
           const { campaign } = data;
+
           return (
             <Container textAlign='center'>
               <Card.Group centered={ true }>
@@ -118,6 +120,7 @@ class Campaign extends Component {
                           { this.state.errors }
                         </Card.Description>
                       </Card.Content>
+
                       {
                         this.state.alternatives && <Card.Content extra>
                           <div className='ui two buttons'>
@@ -130,9 +133,11 @@ class Campaign extends Component {
                           </div>
                         </Card.Content>
                       }
+
                     </Card>
                   </Card.Group>
                 }
+
               </Container>
             </Container>
           );
@@ -141,5 +146,14 @@ class Campaign extends Component {
     )
   }
 }
+
+Campaign.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }),
+  history: PropTypes.object.isRequired
+};
 
 export default Campaign;

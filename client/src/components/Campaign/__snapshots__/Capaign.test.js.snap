@@ -197,7 +197,7 @@ exports[`renders without crashing 1`] = `
   }
   variables={
     Object {
-      "id": 1,
+      "id": "1",
     }
   }
 >

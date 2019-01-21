@@ -11,9 +11,14 @@ exports[`renders without crashing 1`] = `
   <BrowserRouter>
     <Switch>
       <Route
-        component={[Function]}
         exact={true}
         path="/"
+        render={[Function]}
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/campaigns"
       />
       <Route
         component={[Function]}

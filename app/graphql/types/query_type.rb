@@ -1,11 +1,24 @@
 module Types
   class QueryType < GraphQL::Schema::Object
-    field :campaigns, [Types::CampaignType], null: true do
+    field :paginated_campaigns, Types::PaginatedCampaignType, null: true do
       description "Gets all campaigns"
+      argument :page, Integer, required: false
+      argument :page_size, Integer, required: false
     end
 
-    def campaigns
-      Campaign.all
+    def paginated_campaigns(page: 1, page_size: 9)
+      query = Campaign
+        .order(created_at: :desc)
+      count = query.count
+      query = query
+        .offset((page - 1) * page_size)
+        .limit(page_size)
+
+        {
+          campaigns: query,
+          total: count,
+          total_pages: (count / page_size).ceil
+        }
     end
 
     field :campaign, Types::CampaignType, null: true do

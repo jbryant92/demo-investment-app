@@ -6,7 +6,7 @@ import { shallow } from 'enzyme'
 
 it('renders without crashing', () => {
   const instance = shallow(
-        <Investment match={{params: {id: 1}}} />
+        <Investment match={ { params: { id: '1' } } } />
     )
     expect(enzymeToJson(instance)).toMatchSnapshot()
 });

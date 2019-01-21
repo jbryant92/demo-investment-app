@@ -3,6 +3,7 @@
 exports[`renders without crashing 1`] = `
 <Card
   as={null}
+  key="1"
   to={null}
 >
   <Image
@@ -10,16 +11,22 @@ exports[`renders without crashing 1`] = `
     ui={true}
   />
   <CardContent>
-    <CardHeader />
-    <CardMeta />
-    <CardMeta>
+    <CardHeader>
       foo
+    </CardHeader>
+    <CardMeta>
+      bar
+    </CardMeta>
+    <CardMeta>
+      uk
     </CardMeta>
     <CardDescription>
       Investment sought: £
+      100
     </CardDescription>
     <CardDescription>
       Investment already funded: £
+      50
     </CardDescription>
   </CardContent>
   <CardContent
@@ -28,9 +35,11 @@ exports[`renders without crashing 1`] = `
     <Progress
       active={true}
       color="blue"
+      percent={50}
       size="small"
       success={false}
     >
+      50
       % complete
     </Progress>
   </CardContent>
@@ -41,8 +50,9 @@ exports[`renders without crashing 1`] = `
       as="i"
       name="user"
     />
+    2
      
-    person has
+    people have
      invested
   </CardContent>
 </Card>

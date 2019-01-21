@@ -12,6 +12,7 @@ import {
   Icon
 } from 'semantic-ui-react';
 import { Row }  from 'reactstrap';
+import PropTypes from 'prop-types'
 
 import query from '../../queries/getInvestment';
 import CampaignCard from '../CampaignCard'
@@ -63,6 +64,14 @@ class Investment extends Component {
       </Query>
     )
   }
+}
+
+Investment.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    })
+  })
 }
 
 export default Investment;

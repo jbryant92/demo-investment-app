@@ -6,6 +6,7 @@ import {
   Progress
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types'
 
 class CampaignCard extends Component {
   render() {
@@ -19,13 +20,15 @@ class CampaignCard extends Component {
       fundedAmount,
       percentageComplete,
       numberOfInvestors
-    } = this.props.campaign;
+    } = this.props.campaign
 
     const clickable = this.props.clickable
     const inverstorString = numberOfInvestors > 1 ? 'people have' : 'person has'
+
     return (
-      <Card key={ id } as={ clickable ? Link : null } to={ clickable ? `/campaigns/${id}` : null}>
+      <Card key={ id } as={ clickable ? Link : null } to={ clickable ? `/campaigns/${id}` : null }>
         <Image src={ imageUrl } />
+
         <Card.Content>
           <Card.Header>{ name }</Card.Header>
           <Card.Meta>{ sector }</Card.Meta>
@@ -33,6 +36,7 @@ class CampaignCard extends Component {
           <Card.Description>Investment sought: £{ targetAmount }</Card.Description>
           <Card.Description>Investment already funded: £{ fundedAmount }</Card.Description>
         </Card.Content>
+
         <Card.Content extra>
           <Progress
             percent={ percentageComplete }
@@ -44,6 +48,7 @@ class CampaignCard extends Component {
             { percentageComplete }% complete
           </Progress>
         </Card.Content>
+
         <Card.Content extra>
           <Icon name='user' />
           { numberOfInvestors } { inverstorString } invested
@@ -51,6 +56,21 @@ class CampaignCard extends Component {
       </Card>
     )
   }
+}
+
+CampaignCard.propTypes = {
+  campaign: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    sector: PropTypes.string.isRequired,
+    targetAmount: PropTypes.number.isRequired,
+    fundedAmount: PropTypes.number.isRequired,
+    percentageComplete: PropTypes.number.isRequired,
+    numberOfInvestors: PropTypes.number.isRequired,
+    country: PropTypes.shape({
+      name: PropTypes.string
+    }).isRequired
+  })
 }
 
 export default CampaignCard;

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe GraphqlController, type: :controller do
+RSpec.describe Api::GraphqlController, type: :controller do
   describe '#execute' do
     subject { post :execute, params: { query: query, variables: variables, operationName: operation_name }, format: :json}
     context 'when querying campaigns' do
@@ -25,7 +25,6 @@ RSpec.describe GraphqlController, type: :controller do
           }
         }
       end
-
 
       it 'it returns the correct response' do
         subject

@@ -6,7 +6,7 @@ import { shallow } from 'enzyme'
 
 it('renders without crashing', () => {
   const instance = shallow(
-        <Campaigns />
+        <Campaigns location={ { search: '?page=1' } }/>
     )
     expect(enzymeToJson(instance)).toMatchSnapshot()
 });
