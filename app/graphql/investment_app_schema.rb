@@ -1,4 +1,4 @@
-class SeedrsAppSchema < GraphQL::Schema
+class InvestmentAppSchema < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
 

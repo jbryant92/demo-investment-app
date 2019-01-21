@@ -4,7 +4,7 @@ class Api::GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
 
-    result = SeedrsAppSchema.execute(query, variables: variables, context: {}, operation_name: operation_name)
+    result = InvestmentAppSchema.execute(query, variables: variables, context: {}, operation_name: operation_name)
     render json: result
   rescue => e
     raise e unless Rails.env.development?
