@@ -10,8 +10,9 @@ class Resolvers::CreateInvestment < GraphQL::Function
     return GraphQL::ExecutionError.new("Campaign with id: #{args[:campaignId]} not found") unless campaign
 
     @amount = args[:amount]
-    @investment_multiple = campaign.investment_multiple.to_i
-    return GraphQL::ExecutionError.new("To own a whole number of shares you must enter an amount that is a multiple of £#{@investment_multiple.to_i}. Try one of the following:", options: { alternatives: alternatives }) unless @amount % @investment_multiple == 0.0
+    @investment_multiple = campaign.investment_multiple
+
+    return GraphQL::ExecutionError.new("To own a whole number of shares you must enter an amount that is a multiple of £#{@investment_multiple}. Try one of the following:", options: { alternatives: alternatives }) unless valid_amount?
 
     campaign.investments.create(
       amount: @amount
@@ -19,6 +20,11 @@ class Resolvers::CreateInvestment < GraphQL::Function
   end
 
   private
+  def valid_amount?
+    result = (@amount % @investment_multiple).round(2)
+    result.zero? || result == @investment_multiple
+  end
+
   def alternatives
     if lower == 0.0
       [
@@ -27,17 +33,17 @@ class Resolvers::CreateInvestment < GraphQL::Function
       ]
     else
       [
-        lower,
-        upper
+        lower.round(2),
+        upper.round(2)
       ]
     end
   end
 
   def upper
-    BigDecimal(@amount.to_i)./(@investment_multiple).ceil * @investment_multiple
+    (@amount / @investment_multiple).ceil * @investment_multiple
   end
 
   def lower
-    BigDecimal(@amount.to_i)./(@investment_multiple).floor * @investment_multiple
+    (@amount / @investment_multiple).floor * @investment_multiple
   end
 end

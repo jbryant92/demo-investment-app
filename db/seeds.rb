@@ -23,7 +23,7 @@ Country.create(
 45.times do
   country = Country.all.sample
   target_amount = (rand(1000..100000)/100).ceil * 100
-  multiple = rand(2..10)
+  multiple = rand(2.00..15.00).round(2)
   c = Campaign.create(
     name: Faker::Company.name,
     image_url: IMAGE_URLS.sample,

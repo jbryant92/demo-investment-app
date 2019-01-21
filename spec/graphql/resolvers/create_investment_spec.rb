@@ -43,7 +43,7 @@ describe Resolvers::CreateInvestment do
       it 'returns GraphQL execution error with correct message' do
         returned_object = subject.call({}, args, {})
         expect(returned_object.class).to eq( GraphQL::ExecutionError )
-        expect(returned_object.message).to eq('To own a whole number of shares you must enter an amount that is a multiple of £30. Try one of the following:')
+        expect(returned_object.message).to eq('To own a whole number of shares you must enter an amount that is a multiple of £30.0. Try one of the following:')
         expect(returned_object.options).to eq({ alternatives: [180, 210] })
       end
 

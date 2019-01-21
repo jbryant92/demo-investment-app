@@ -24,7 +24,7 @@ class Investment extends Component {
 
     return (
       <Query
-        query={query}
+        query={ query }
         variables={{ id }}
       >
         {({ loading, error, data }) => {
@@ -34,7 +34,7 @@ class Investment extends Component {
             </Dimmer>
           );
 
-          if (error) return <p>{error}</p>;
+          if (error) return <p>{ error }</p>;
 
           const { campaign, amount } = data.investment;
           return (

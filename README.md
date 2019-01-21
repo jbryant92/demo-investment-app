@@ -76,6 +76,12 @@ npm run start
 
 The app is now running, and accessible under `http://localhost:3000/`
 
+## Developing
+
+### GraphiQL
+
+In development mode, you can access GraphiQL `http://localhost:3000/graphiql`. This provides API documentation and a IDE to help with building queries. For more information visit [https://github.com/rmosolgo/graphiql-rails](https://github.com/rmosolgo/graphiql-rails).
+
 ## Tests
 
 The app contains Rspec test for the Ruby on Rails backend, and Jest snapshot tests for the React front end.

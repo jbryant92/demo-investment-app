@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Api::GraphqlController, type: :controller do
   describe '#execute' do
-    subject { post :execute, params: { query: query, variables: variables, operationName: operation_name }, format: :json}
-    context 'when querying campaigns' do
+    subject { post :execute, params: { query: query, variables: variables, operationName: operation_name }, format: :json }
+    context 'when querying a campaign' do
       let(:variables) { { id: campaign.id } }
       let(:campaign) { create(:campaign) }
       let(:query) { "query getCampaign($id: ID!) {\n  campaign(id: $id) {\n    id\n    name\n    sector\n    imageUrl\n    country {\n      name\n    }\n    targetAmount\n    fundedAmount\n    percentageComplete\n    numberOfInvestors\n  }\n}\n" }
@@ -95,6 +95,64 @@ RSpec.describe Api::GraphqlController, type: :controller do
         subject
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)).to eq(expected_result)
+      end
+    end
+
+    context 'when querying campaigns' do
+      let(:variables) { "{\"page\":#{page},\"pageSize\":2}" }
+      let(:page) { 1 }
+      let(:query) { "query getCampaigns($page: Int!, $pageSize: Int!) {\n  paginatedCampaigns(page: $page, pageSize: $pageSize) {\n    campaigns{\n      id\n    }\n    total\n  \ttotalPages\n  }\n}" }
+      let(:operation_name) { "getCampaigns" }
+
+      let!(:campaign_1) { create(:campaign) }
+      let!(:campaign_2) { create(:campaign) }
+      let!(:campaign_3) { create(:campaign) }
+
+      context 'when on page 1' do
+        let(:page_one_result) do
+          {
+            'data' => {
+              'paginatedCampaigns' => {
+                'campaigns' => [
+                  { 'id' => campaign_1.id },
+                  { 'id' => campaign_2.id }
+                ],
+                'total' => 3,
+                'totalPages' => 2
+              }
+            }
+          }
+        end
+
+        it 'it returns the correct response' do
+          subject
+          expect(response).to have_http_status(:ok)
+          expect(JSON.parse(response.body)).to eq(page_one_result)
+        end
+      end
+
+      context 'on page 2' do
+        let(:page) { 2 }
+        let(:page_one_result) do
+          {
+            'data' => {
+              'paginatedCampaigns' => {
+                'campaigns' => [
+                  { 'id' => campaign_3.id }
+                ],
+                'total' => 3,
+                'totalPages' => 2
+              }
+            }
+          }
+        end
+
+        it 'it returns the correct response' do
+          subject
+          expect(response).to have_http_status(:ok)
+          expect(JSON.parse(response.body)).to eq(page_one_result)
+        end
+
       end
     end
   end

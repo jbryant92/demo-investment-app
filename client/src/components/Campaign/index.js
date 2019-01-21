@@ -9,7 +9,6 @@ import {
   Container,
   Button,
   Input,
-  Label,
   Card,
   Icon
 } from 'semantic-ui-react';
@@ -61,7 +60,7 @@ class Campaign extends Component {
 
     return (
       <Query
-        query={query}
+        query={ query }
         variables={{ id }}
       >
 
@@ -72,7 +71,7 @@ class Campaign extends Component {
             </Dimmer>
           );
 
-          if (error) return <p>{error}</p>;
+          if (error) return <p>{ error }</p>;
 
           const { campaign } = data;
 
@@ -85,15 +84,14 @@ class Campaign extends Component {
               <Container>
                 <Row className='input-row'>
                   <Input
-                    labelPosition='right'
+                    iconPosition='left'
                     type='number'
                     placeholder='Enter Amount'
-                    value={this.state.amount}
+                    value={ this.state.amount }
                     onChange={ this.handleAmountChange }
                   >
-                    <Label basic>£</Label>
+                    <Icon name='pound' />
                     <input />
-                  <Label>.00</Label>
                   </Input>
                 </Row>
 

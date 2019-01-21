@@ -17,7 +17,7 @@ module Types
         {
           campaigns: query,
           total: count,
-          total_pages: (count / page_size).ceil
+          total_pages: (count.to_f / page_size).ceil
         }
     end
 

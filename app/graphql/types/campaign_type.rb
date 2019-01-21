@@ -14,7 +14,7 @@ class Types::CampaignType < GraphQL::Schema::Object
 
   def funded_amount
     @funded_amount ||= investments.then do |association|
-      association.pluck(:amount).inject(&:+) || 0.0
+      (association.pluck(:amount).inject(&:+) || 0.0).round(2)
     end
   end
 
