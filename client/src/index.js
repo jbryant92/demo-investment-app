@@ -7,7 +7,7 @@ import App from './components/App';
 import 'semantic-ui-css/semantic.min.css';
 
 const client = new ApolloClient({
-  uri: "/graphql"
+  uri: "/api/graphql"
 });
 
 ReactDOM.render(

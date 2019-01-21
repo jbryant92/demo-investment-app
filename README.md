@@ -2,12 +2,41 @@
 
 ## Setup
 
+You can run this project with Docker or as individual components:
+
+### Docker
+
+#### Dependencies:
+- Docker for Mac
+
+1. In the root of the repo, build the app:
+```
+> docker-compose build
+```
+
+2. Run the app:
+```
+> docker-compose up
+```
+
+This will bring up 4 containers:
+```
+demo-investment-app_db_1 # MySQL Database
+demo-investment-app_backend_1 # Rails Backend
+demo-investment-app_frontend_1 # React Front end
+demo-investment-app_nginx_1 # NGINX for routing requests from the front end to the backend
+```
+
+You can now access the app at `http://localhost:8080/`
+
+### Standalone setup
+
 Before starting, make sure you have all dependencies installed:
 
-### Dependencies:
+#### Dependencies:
 - Ruby 2.3.3
 - MySQL 5.6
-- NPM 5.6.0
+- Node 8.11
 - Bundler 1.16.0
 
 Now you can start running the app. The app consists of a Ruby on Rails API backend, and a React front end.

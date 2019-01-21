@@ -3,7 +3,6 @@ import {
   Query
 } from 'react-apollo';
 import {
-  Segment,
   Dimmer,
   Loader,
   Container,

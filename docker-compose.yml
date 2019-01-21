@@ -1,0 +1,49 @@
+version: '2'
+
+services:
+  nginx:
+    image: bitnami/nginx:1.10.2-r1
+    volumes:
+      - ./config/nginx:/bitnami/nginx/conf/vhosts
+    depends_on:
+      - backend
+      - frontend
+    environment:
+      - VIRTUAL_HOST=yourproject.docker
+      - VIRTUAL_PORT=8080
+    ports:
+      - 8080:8080
+  db:
+    image: library/mysql:5.6.22
+    ports:
+      - "13306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=investment_app_development
+  backend:
+    build: .
+    command: rails s --binding=0.0.0.0 --port=3001
+    entrypoint: ./scripts/backend_entrypoint.sh
+    links:
+      - db:sql_srv
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+    ports:
+      - "3001:3001"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_HOST: sql_srv
+  frontend:
+    image: "node:10-alpine"
+    user: "node"
+    working_dir: /myapp/frontend
+    volumes:
+      - ./client:/myapp/frontend
+    ports:
+      - "3000:3000"
+    command: "npm run start"
+    depends_on:
+      - backend
